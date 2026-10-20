@@ -1,0 +1,88 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ page import="com.example.score.common.HtmlUtil" %>
+<%@ page import="com.example.score.common.LoginUser" %>
+<%@ page import="com.example.score.common.SessionUtil" %>
+<%-- 应用外壳上部分：head + 顶栏 + 侧边栏 + 内容区开头；ctx / me / pageTitle / activeMenu 供包含它的页面直接使用 --%>
+<%
+    String ctx = request.getContextPath();
+    LoginUser me = SessionUtil.get(session);
+    String pageTitle = (String) request.getAttribute("pageTitle");
+    String activeMenu = (String) request.getAttribute("activeMenu");
+    if (pageTitle == null) {
+        pageTitle = "学生成绩管理系统";
+    }
+    if (activeMenu == null) {
+        activeMenu = "";
+    }
+%>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= HtmlUtil.esc(pageTitle) %> · 学生成绩管理系统</title>
+    <link rel="stylesheet" href="<%= ctx %>/css/style.css">
+</head>
+<body class="app">
+<header class="topbar">
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="展开菜单">☰</button>
+    <a class="brand" href="<%= ctx %>/">
+        <span class="brand-mark">成</span>
+        <span class="brand-text">
+            <strong>学生成绩管理系统</strong>
+            <small>Student Score Management</small>
+        </span>
+    </a>
+    <% if (me != null) { %>
+    <div class="user-chip">
+        <span class="role-badge role-<%= me.getRole().name().toLowerCase() %>"><%= me.getRole().getLabel() %></span>
+        <span class="user-name"><%= HtmlUtil.esc(me.getName()) %></span>
+        <a class="logout" href="<%= ctx %>/logout">退出</a>
+    </div>
+    <% } %>
+</header>
+
+<div class="shell">
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <% if (me != null && me.isTeacher()) { %>
+            <a class="nav-item <%= "courses".equals(activeMenu) ? "active" : "" %>" href="<%= ctx %>/teacher/courses">
+                <span class="nav-icon">▤</span>我的课程
+            </a>
+            <a class="nav-item <%= "students".equals(activeMenu) ? "active" : "" %>" href="<%= ctx %>/teacher/students">
+                <span class="nav-icon">☷</span>学生管理
+            </a>
+            <% } %>
+            <% if (me != null && me.isStudent()) { %>
+            <a class="nav-item <%= "my-scores".equals(activeMenu) ? "active" : "" %>" href="<%= ctx %>/student/scores">
+                <span class="nav-icon">▤</span>我的成绩
+            </a>
+            <% } %>
+            <% if (me != null && me.isMonitor()) { %>
+            <a class="nav-item <%= "my-scores".equals(activeMenu) ? "active" : "" %>" href="<%= ctx %>/monitor/scores">
+                <span class="nav-icon">▤</span>我的成绩
+            </a>
+            <a class="nav-item <%= "ranking".equals(activeMenu) ? "active" : "" %>" href="<%= ctx %>/monitor/ranking">
+                <span class="nav-icon">★</span>班级排名
+            </a>
+            <% } %>
+        </nav>
+        <div class="sidebar-foot">
+            <p>成绩口径</p>
+            <ul>
+                <li>总评 = 平时 × 比例 + 考试 × 比例</li>
+                <li>绩点 =（总评 − 50）÷ 10，低于 60 记 0</li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="main">
+        <div class="page-head">
+            <h1><%= HtmlUtil.esc(pageTitle) %></h1>
+            <% if (me != null) { %>
+            <p class="page-sub">
+                <%= me.getRole().getLabel() %> · <%= HtmlUtil.esc(me.getName()) %>
+                （<%= HtmlUtil.esc(me.getUsername()) %>）
+            </p>
+            <% } %>
+        </div>

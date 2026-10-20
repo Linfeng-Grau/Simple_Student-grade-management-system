@@ -1,0 +1,19 @@
+{
+    // F5 一键启动；停止用调试工具栏红色方块或 Shift+F5
+    // 端口沿用 application.properties 的 8081，不要与终端里的 java -jar 同时运行
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ScoreApplication（启动成绩系统）",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.score.ScoreApplication",
+            "projectName": "score-web",
+            // 日志直接显示在「终端」，Ctrl+C 也能停止
+            "console": "integratedTerminal",
+            // 控制台与页面统一 UTF-8，避免中文日志乱码
+            "vmArgs": "-Dfile.encoding=UTF-8"
+        }
+    ]
+}

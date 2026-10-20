@@ -1,0 +1,8 @@
+{
+  // 源文件统一 UTF-8（JSP / Java / CSS 都按 UTF-8 保存，避免中文乱码）
+  "files.encoding": "utf8",
+  "files.eol": "\r\n",
+  // 修改 pom.xml 后自动更新 Java 工程配置
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "automatic"
+}
