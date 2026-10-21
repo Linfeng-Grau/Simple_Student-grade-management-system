@@ -66,14 +66,14 @@ java -jar target\score-web.war
 mvn spring-boot:run
 ```
 
-> **端口**：默认 **8081**（本机 8080 被 VS Code 内嵌浏览器占用）。需要改端口就编辑
+> **端口**：默认 **8081**（本机因8080被VSCode内嵌浏览器占用，故改为8081）。需要改端口就编辑
 > `src/main/resources/application.properties` 里的 `server.port`，或给开关脚本加 `-Port 9090`。
 >
 > **注意**：不要同时用终端 `java -jar` 和 VS Code `F5` 启动，两者都占 8081，后启动的会失败。
 
 ### 4. 在 VS Code 里启动 / 调试（可选）
 
-工程已带 `.vscode/launch.json`：
+工程带 `.vscode/launch.json`：
 
 1. 按 **`F5`**（或「运行和调试」里选 `ScoreApplication（启动成绩系统）`）；
 2. 停止点调试工具栏的**红色方块**，或按 **`Shift + F5`**；
@@ -129,7 +129,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\toggle-app.ps1 -Port 9
 必须改成 8~20 位、同时包含**字母和数字**、且不等于 `114514` 的新密码后才能进入业务页面。
 
 > **隐私说明**：演示数据里所有姓名都是虚构的（演示学生甲/乙/丙、张明/李静/王强），
-> 学号与工号也是编造的，**没有任何一项来自本机或真实用户的个人信息**。
+> 学号与工号也是编造的，
 > 教师添加学生时也请使用虚构姓名与学号，不要录入真实学生的个人信息。
 
 ---
@@ -254,7 +254,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\toggle-app.ps1 -Port 9
 
 ---
 
-## 六、自检：怎么确认它是对的
+## 六、自检：
 
 ### 1. 单元测试
 
@@ -445,7 +445,7 @@ app_user(id PK, username UK, password, name, role, ref_no, class_no,
 
 ---
 
-## 十一、可扩展方向
+## 十一、可以扩展的方向
 
 - 增加课程维护、Excel 导入学生名单（当前学生添加只能单个录入）
 - 增加 Excel 导入导出成绩、成绩复核流程
